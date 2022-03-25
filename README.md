@@ -14,10 +14,11 @@ Author: Jung
 
 ### **OS**
 
-- [프로세스와 스레드](./os/process_thread.md)
+- [운영체제란?](./os/doc/os.md)
+- [프로세스와 스레드](./os/doc/process_thread.md)
 
 </br>
 
 ### **NetWork**
 
-- [HTTP](./network/http.md)
+- [HTTP](./network/doc/http.md)
