@@ -79,9 +79,9 @@
 
 </br>
 
-|             Thread              |
-| :-----------------------------: |
-| ![thread img](./res/thread.png) |
+|              Thread              |
+| :------------------------------: |
+| ![thread img](../res/thread.png) |
 
 </br>
 
