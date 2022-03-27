@@ -45,9 +45,9 @@
 
 </br>
 
-|                http versiion                 |
-| :------------------------------------------: |
-| ![http version img](./res/http-versions.png) |
+|                 http versiion                 |
+| :-------------------------------------------: |
+| ![http version img](../res/http-versions.png) |
 
 - `멀티플렉싱` : HTTP 1.1과 가장 큰 차이점은 동시에 여러 개의 메시지를 주고 받는 것이 가능
 - `Stream Prioritization` : HTML 문서 안에 여러 파일이 존재 할 때, 수신이 늦어지는 경우 브라우저의 랜더링이 늦어지는 문제 발생하기 때문에 http 2.0에서는 리소스간 의존 관계를 설정하여 문제 해결.
