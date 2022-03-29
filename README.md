@@ -18,7 +18,7 @@ Author: Jung
 - [프로세스와 스레드](./os/doc/process_thread.md)
 - [시스템 호출](./os/doc/process_thread.md)
 - [IPC](./os/doc/ipc.md)
-- [CPU 스케줄링](./os/doc/scheduling)
+- [CPU 스케줄링](./os/doc/scheduling.md)
 
 </br>
 
