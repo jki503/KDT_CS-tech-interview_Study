@@ -1,4 +1,4 @@
-# CPI Scheduling\*\*
+# CPI Scheduling
 
 </br>
 
