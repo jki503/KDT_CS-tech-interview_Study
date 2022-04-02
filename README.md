@@ -20,6 +20,7 @@ Author: Jung
 - [IPC](./os/doc/ipc.md)
 - [CPU 스케줄링](./os/doc/scheduling.md)
 - [Race Condition](./os/doc/race_condtion.md)
+- [메모리](./os/doc/memory.md)
 
 </br>
 
