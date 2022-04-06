@@ -22,6 +22,7 @@ Author: Jung
 - [Race Condition](./os/doc/race_condtion.md)
 - [DeadLock](./os/doc/deadlock.md)
 - [메모리](./os/doc/memory.md)
+- [페이징 & 세그멘테이션](./os/doc/paging_segmentation.md)
 
 </br>
 
