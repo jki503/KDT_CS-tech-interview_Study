@@ -23,6 +23,7 @@ Author: Jung
 - [DeadLock](./os/doc/deadlock.md)
 - [메모리](./os/doc/memory.md)
 - [페이징 & 세그멘테이션](./os/doc/paging_segmentation.md)
+- [페이지 교체 알고리즘](./os/doc/paging_algorithm.md)
 
 </br>
 
