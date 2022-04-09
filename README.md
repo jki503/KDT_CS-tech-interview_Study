@@ -29,4 +29,5 @@ Author: Jung
 
 ### **NetWork**
 
+- [OSI 7계층](./network/doc/osi_7.md)
 - [HTTP](./network/doc/http.md)
