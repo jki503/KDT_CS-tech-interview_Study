@@ -30,5 +30,6 @@ Author: Jung
 ### **NetWork**
 
 - [OSI 7계층](./network/doc/osi_7.md)
-- [TCP/IP](./network/doc/flow_congestion_control.md)
+- [TCP/IP 흐름제어 혼잡제어](./network/doc/flow_congestion_control.md)
+- [TCP 3 & 4 handshake](./network/doc/tcp_handshake.md)
 - [HTTP](./network/doc/http.md)
