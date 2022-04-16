@@ -34,3 +34,4 @@ Author: Jung
 - [TCP 3 & 4 handshake](./network/doc/tcp_handshake.md)
 - [TCP vs UDP](./network/doc/tcp_udp.md)
 - [HTTP](./network/doc/http.md)
+- [REST & RESTful](./network/doc/rest.md)
