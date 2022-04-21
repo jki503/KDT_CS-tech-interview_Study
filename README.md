@@ -37,3 +37,4 @@ Author: Jung
 - [REST & RESTful](./network/doc/rest.md)
 - [Cookie & Session](./network/doc/cookie_session.md)
 - [JWT](./network/doc/jwt.md)
+- [DNS](./network/doc/dns.md)
