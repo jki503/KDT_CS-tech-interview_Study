@@ -38,3 +38,4 @@ Author: Jung
 - [JWT](./network/doc/jwt.md)
 - [DNS](./network/doc/dns.md)
 - [HTTP](./network/doc/http.md)
+- [HTTP 1.1/2.0](./network/doc/http_version.md)
