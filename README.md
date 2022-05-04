@@ -44,4 +44,4 @@ Author: Jung
 
 ## **DataBase**
 
-- [Key & Join](./db/res/doc/key_join.md)
+- [Key & Join](./db/doc/key_join.md)
