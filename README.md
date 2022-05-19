@@ -51,3 +51,4 @@ Author: Jung
 - [Statement vs PreparedStatement](./db/doc/statement_prepared.md)
 - [정규화 vs 비정규화](./db/doc/normalization.md)
 - [DBCP](./db/doc/dbcp.md)
+- [프로시저](/db/doc/procedure.md)
