@@ -54,3 +54,4 @@ Author: Jung
 - [프로시저](/db/doc/procedure.md)
 - [RDBMS vs nosql](/db/doc/nosql.md)
 - [REDIS](/db/doc/redis.md)
+- [옵티마이저](/db/doc/optimizer.md)
