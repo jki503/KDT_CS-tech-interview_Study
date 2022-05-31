@@ -62,3 +62,5 @@ Author: Jung
 </br>
 
 ## **SpringBoot**
+
+- [영속성 컨텍스트](./springboot/doc/entity_manager.md)
