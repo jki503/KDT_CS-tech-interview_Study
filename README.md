@@ -64,3 +64,4 @@ Author: Jung
 ## **SpringBoot**
 
 - [영속성 컨텍스트](./springboot/doc/entity_manager.md)
+- [엔티티 매핑](./springboot/doc/entity_mapping.md)
