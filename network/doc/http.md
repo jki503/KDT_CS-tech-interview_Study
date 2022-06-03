@@ -196,10 +196,17 @@
 
 </br>
 
-- 1XX : 정보전달 -> 요청을 받았고 작업을 처리 중일 때
 - 2XX : 성공 -> 작업을 받고 난후 처리를 완료
+  - 200 : ok
+  - 201 : 생성 완료
 - 3XX : 리디렉션 -> 요청을 완료하기 위한 리디렉션이 필요한 상태
 - 4XX : 클라이언트 오류 -> 요청이 올바르지 않을 경우
+  - 400 : Bad Request
+    - IllegalArgumentException
+    - IllegalStatementException
+    - Duplicate : DB 중복 컬럼 방지
+  - 404 : NOT FOUND 자원에 대한 요청이 없을때
+  -
 - 5XX : 서버 오류 -> 올바른 요청에 대해 서버가 응답 할 수 없을 때
 
 </br>
