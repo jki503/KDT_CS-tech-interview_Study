@@ -65,3 +65,4 @@ Author: Jung
 
 - [영속성 컨텍스트](./springboot/doc/entity_manager.md)
 - [엔티티 매핑](./springboot/doc/entity_mapping.md)
+- [프록시 객체](./springboot/doc/proxy_relation.md)
