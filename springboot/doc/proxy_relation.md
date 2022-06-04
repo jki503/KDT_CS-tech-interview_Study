@@ -27,9 +27,9 @@
 
 </br>
 
-|                getReference Method                |
-| :-----------------------------------------------: |
-| ![get reference](../res/../doc/get_reference.png) |
+|            getReference Method             |
+| :----------------------------------------: |
+| ![get reference](../res/get_reference.png) |
 
 </br>
 
