@@ -4,17 +4,15 @@ CS: OS, Network, Web
 Author: Jung
 ---
 
-## **Table Of Contents**
-
-- [**Table Of Contents**](#table-of-contents)
-  - [**OS**](#os)
-  - [**NetWork**](#network)
+- [**OS**](#os)
+- [**NetWork**](#network)
 - [**DataBase**](#database)
 - [**SpringBoot**](#springboot)
+- [**Data Structure**](#data-structure)
 
 </br>
 
-### **OS**
+## **OS**
 
 - [운영체제란?](./os/doc/os.md)
 - [프로세스와 스레드](./os/doc/process_thread.md)
@@ -26,10 +24,11 @@ Author: Jung
 - [메모리](./os/doc/memory.md)
 - [페이징 & 세그멘테이션](./os/doc/paging_segmentation.md)
 - [페이지 교체 알고리즘](./os/doc/paging_algorithm.md)
+- [동기 vs 비동기(feat. 그래서 blocking non-blockin하고 차이는?)](./os/doc/sync_async.md)
 
 </br>
 
-### **NetWork**
+## **NetWork**
 
 - [OSI 7계층](./network/doc/osi_7.md)
 - [TCP/IP 흐름제어 혼잡제어](./network/doc/flow_congestion_control.md)
@@ -66,3 +65,7 @@ Author: Jung
 - [영속성 컨텍스트](./springboot/doc/entity_manager.md)
 - [엔티티 매핑](./springboot/doc/entity_mapping.md)
 - [프록시 객체](./springboot/doc/proxy_relation.md)
+
+## **Data Structure**
+
+- [List - ArrayList와 LinkedList](./data_structure/doc/_01_list.md)
