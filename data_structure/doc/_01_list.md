@@ -6,6 +6,7 @@ Author: Jung
 
 - [ADT 관점에서 List](#adt-관점에서-list)
 - [ArrayList](#arraylist)
+  - [java.util.ArrayList 살펴보기](#javautilarraylist-살펴보기)
 - [LinkedList](#linkedlist)
   - [circular linked list](#circular-linked-list)
   - [doubly linked list](#doubly-linked-list)
@@ -38,7 +39,218 @@ Author: Jung
 
 </br>
 
-> 배열을 사용하여 List를 구현한다.
+> 배열을 사용하여 List를 구현한다.  
+> ArrayList를 사용하는 방식이 동적인 것은 사실이지만  
+> 결국 특정 사이즈의 배열을 인스턴스 변수로 가진다는 것!
+
+</br>
+
+### java.util.ArrayList 살펴보기
+
+</br>
+
+- 살펴볼 인스턴스 변수
+
+```java
+public class ArrayList<E> extends AbstractList<E>
+        implements List<E>, RandomAccess, Cloneable, java.io.Serializable
+{
+  private static final int DEFAULT_CAPACITY = 10;
+
+  private static final Object[] EMPTY_ELEMENTDATA = {};
+
+  private static final Object[] DEFAULTCAPACITY_EMPTY_ELEMENTDATA = {};
+
+    /**
+   * The array buffer into which the elements of the ArrayList are stored.
+   * The capacity of the ArrayList is the length of this array buffer. Any
+   * empty ArrayList with elementData == DEFAULTCAPACITY_EMPTY_ELEMENTDATA
+   * will be expanded to DEFAULT_CAPACITY when the first element is added.
+   */
+  transient Object[] elementData; // non-private to simplify nested class access
+
+  private int size;
+
+}
+```
+
+</br>
+
+- elementData
+
+> ArrayList에서 원소를 저장할 배열  
+> 문서를 잠깐 살펴보면  
+> 어떤 빈 arrayList 즉 elementData == DEFAULTCAPACITY_EMPTY_ELEMENTDATA는  
+> 첫번째 원소가 삽입되는 순간에 DEFAULT_CAPACITY로 확장 된다고 한다.
+
+</br>
+
+- 생성자
+
+```java
+public ArrayList(int initialCapacity) {
+        if (initialCapacity > 0) {
+            this.elementData = new Object[initialCapacity];
+        } else if (initialCapacity == 0) {
+            this.elementData = EMPTY_ELEMENTDATA;
+        } else {
+            throw new IllegalArgumentException("Illegal Capacity: "+
+                                               initialCapacity);
+        }
+    }
+
+    /**
+     * Constructs an empty list with an initial capacity of ten.
+     */
+    public ArrayList() {
+        this.elementData = DEFAULTCAPACITY_EMPTY_ELEMENTDATA;
+    }
+
+    /**
+     * Constructs a list containing the elements of the specified
+     * collection, in the order they are returned by the collection's
+     * iterator.
+     *
+     * @param c the collection whose elements are to be placed into this list
+     * @throws NullPointerException if the specified collection is null
+     */
+    public ArrayList(Collection<? extends E> c) {
+        Object[] a = c.toArray();
+        if ((size = a.length) != 0) {
+            if (c.getClass() == ArrayList.class) {
+                elementData = a;
+            } else {
+                elementData = Arrays.copyOf(a, size, Object[].class);
+            }
+        } else {
+            // replace with empty array.
+            elementData = EMPTY_ELEMENTDATA;
+        }
+    }
+```
+
+</br>
+
+> 세 개의 생성자가 작성 되어 있다.  
+> 우리가 흔히 생성하는 방식 List\<E> list = new ArrayList<>();과 같이
+> Capacity를 지정하지 않고 선언하여 사용하는데,  
+> 이 경우 elementData = DEFAULTCAPACITY_EMPTY_ELEMENTDATA로 정의한다.
+
+</br>
+
+- add(E e)
+
+```java
+public boolean add(E e) {
+  modCount++;
+  add(e, elementData, size);
+  return true;
+}
+
+private void add(E e, Object[] elementData, int s) {
+  if (s == elementData.length)
+      elementData = grow();
+  elementData[s] = e;
+  size = s + 1;
+}
+```
+
+</br>
+
+- 1. 우리가 흔히 사용하는 add(E e)를 호출하면 class의 private void add(E e, Object[] elementData, int s)를 호출한다.
+- 2. size가 현재 원소를 담는 elementData의 길이와 같으면 grow() 메서드를 호출한다.
+- 3. 그 후 elementData[s]에 데이터를 저장한 후 size를 1 증가시킨다.
+
+</br>
+
+- grow()와 grow(int minCapacity)
+
+> 위에서 살펴 봤듯, size와 element.length가 같으면  
+> 데이터를 더이상 저장할 수 없음으로  
+> 배열의 크기를 늘리는 grow() 메서드를 호출한다.
+>
+> 그리구 위 문서에서처럼 정말 초기 capacity를 정하지 않을때  
+> `element = DEFAULTCAPACITY_EMPTY_ELEMENTDATA` 어떻게 동작하는지 살펴보자!
+
+</br>
+
+```java
+  private Object[] grow(int minCapacity) {
+      int oldCapacity = elementData.length;
+      if (oldCapacity > 0 || elementData != DEFAULTCAPACITY_EMPTY_ELEMENTDATA) {
+          int newCapacity = ArraysSupport.newLength(oldCapacity,
+                  minCapacity - oldCapacity, /* minimum growth */
+                  oldCapacity >> 1           /* preferred growth */);
+          return elementData = Arrays.copyOf(elementData, newCapacity);
+      } else {
+          return elementData = new Object[Math.max(DEFAULT_CAPACITY, minCapacity)];
+      }
+  }
+  private Object[] grow() {
+      return grow(size + 1);
+  }
+```
+
+</br>
+
+- 1. grow()에서 현재 grow(int minCapcity)를 호출한다.
+- 2. 일단 oldCapacity를 `현재 용량`이라고 부르겠다.
+- 3. 분기문을 살펴볼 때 현재 용량이 0보다 크거나 elementData != DEFAULTCAPACITY_EMPTY_ELEMENTDATA 일 경우
+  - 새로운 용량을 결정한 후 elementData의 정보를 복사 한다.
+- 4. 현재 용량이 0이면서 element가 DEFAULTCAPACITY_EMPTY_ELEMENTDATA면
+  - elementData의 크기를 DEFAULT_CAPACITY로 늘려서 배열을 재정의한다.
+
+</br>
+
+> 이제 3번을 좀 더 살펴보기로 하자.  
+> 살펴보기로 할 내용은 과연 elementData의 사이즈를 늘릴때  
+> 내부에서 얼마나 늘려주는지!
+
+</br>
+
+```java
+package jdk.internal.util;
+
+  public static final int SOFT_MAX_ARRAY_LENGTH = Integer.MAX_VALUE - 8;
+
+
+  public static int newLength(int oldLength, int minGrowth, int prefGrowth) {
+      // preconditions not checked because of inlining
+      // assert oldLength >= 0
+      // assert minGrowth > 0
+      int prefLength = oldLength + Math.max(minGrowth, prefGrowth); // might overflow
+      if (0 < prefLength && prefLength <= SOFT_MAX_ARRAY_LENGTH) {
+          return prefLength;
+      } else {
+          // put code cold in a separate method
+          return hugeLength(oldLength, minGrowth);
+      }
+  }
+
+  private static int hugeLength(int oldLength, int minGrowth) {
+    int minLength = oldLength + minGrowth;
+    if (minLength < 0) { // overflow
+        throw new OutOfMemoryError(
+            "Required array length " + oldLength + " + " + minGrowth + " is too large");
+    } else if (minLength <= SOFT_MAX_ARRAY_LENGTH) {
+        return SOFT_MAX_ARRAY_LENGTH;
+    } else {
+        return minLength;
+    }
+}
+
+```
+
+> 예를 들어 현재 elementData.length가 10으로 현재 용량이 가득 찬 경우  
+> oldLength = 10, minGrowth = 1, prefGrowth = 5가된다.
+> grow에서 넣어주는 방식이 복잡해보이긴 하지만 쉽게 설명하면
+> oldLength = a, minGrowth = 1, prefGrowth = a >> 1이다.
+
+</br>
+
+- 1. prefLength가 0보다 크고 prefLenth <= SOFT_MAX_ARRAY_LENGTH일 경우에는 prefLength를 반환해준다.
+  - 즉 element.length = (현재 길이) + (현재 길이 / 2)로 설정된다.
+- 2.hugeLenth의 경우 거진 발생하지 않는 상황이라 설명 생략
 
 </br>
 
