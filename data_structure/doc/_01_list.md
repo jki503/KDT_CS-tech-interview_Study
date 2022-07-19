@@ -8,6 +8,7 @@ Author: Jung
 - [ArrayList](#arraylist)
   - [java.util.ArrayList 살펴보기](#javautilarraylist-살펴보기)
 - [LinkedList](#linkedlist)
+  - [java.util.LinkedList 살펴보기](#javautillinkedlist-살펴보기)
   - [circular linked list](#circular-linked-list)
   - [doubly linked list](#doubly-linked-list)
   - [circular doubly linked list](#circular-doubly-linked-list)
@@ -266,6 +267,123 @@ package jdk.internal.util;
 > 그러면 head로부터 끝에 있는 헤드까지가서  
 > 노드를 만들고 마지막 노드를 만들어야한다.  
 > 이때 삽입에서 손해를 본다.
+
+</br>
+
+### java.util.LinkedList 살펴보기
+
+</br>
+
+- 기본 정보
+
+```java
+public class LinkedList<E>
+    extends AbstractSequentialList<E>
+    implements List<E>, Deque<E>, Cloneable, java.io.Serializable
+{
+    transient int size = 0;
+
+    /**
+     * Pointer to first node.
+     */
+    transient Node<E> first;
+
+    /**
+     * Pointer to last node.
+     */
+    transient Node<E> last;
+
+    private static class Node<E> {
+      E item;
+      Node<E> next;
+      Node<E> prev;
+
+      Node(Node<E> prev, E element, Node<E> next) {
+          this.item = element;
+          this.next = next;
+          this.prev = prev;
+      }
+    }
+}
+```
+
+> Node first와 last를 인스턴스 변수로 가지고 있다.
+> Node는 inner class로 next와 prev를 가지고 있다(`이중 연결리스트`)
+
+</br>
+
+- add(E e)
+
+</br>
+
+```java
+  public boolean add(E e) {
+      linkLast(e);
+      return true;
+  }
+
+  void linkLast(E e) {
+    final Node<E> l = last;
+    final Node<E> newNode = new Node<>(l, e, null);
+    last = newNode;
+    if (l == null)
+        first = newNode;
+    else
+        l.next = newNode;
+    size++;
+    modCount++;
+  }
+```
+
+</br>
+
+> 사실 참조에 대한 개념만 있다면 동작원리를 이해하는데 그렇게 어렵지 않다.
+
+- 1. 지역변수로 last 노드를 저장해준다.
+- 2. newNode를 만들고, prev에 last를 넣어준다.
+- 3. last를 newNode로 정의한다.
+- 4. 이후 분기점은 현재 Node가 첫번째 삽입이냐 아니냐를 판단한다.
+  - l == null이면, 첫번째 삽입이면 first와 last가 같은 노드를 갖는다,
+  - l == null이 아니면, 첫번째 삽입이 아니면, ㅣ의 next가 newNode를 가리키게 한다.
+
+</br>
+
+- get(int index)
+
+```java
+  public E get(int index) {
+      checkElementIndex(index);
+      return node(index).item;
+  }
+  private void checkElementIndex(int index) {
+    if (!isElementIndex(index))
+      throw new IndexOutOfBoundsException(outOfBoundsMsg(index));
+  }
+
+  private boolean isElementIndex(int index) {
+      return index >= 0 && index < size;
+  }
+
+  Node<E> node(int index) {
+    // assert isElementIndex(index);
+    if (index < (size >> 1)) {
+        Node<E> x = first;
+        for (int i = 0; i < index; i++)
+            x = x.next;
+        return x;
+    } else {
+        Node<E> x = last;
+        for (int i = size - 1; i > index; i--)
+            x = x.prev;
+        return x;
+    }
+  }
+```
+
+- 1. checkElementIndex를 통해 index 유효성 검증
+- 2. index의 node를 찾을때
+  - size / 2가 index보다 작으면 first를 기준으로 해당 인덱스의 node를 찾는다.
+  - size / 2가 index보다 크면 last를 기준으로 해당 인덱스의 node를 찾는다.
 
 </br>
 
