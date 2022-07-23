@@ -16,6 +16,7 @@ Author: Jung
   - [StackOverFlow](#stackoverflow)
   - [OutOfMemoryError](#outofmemoryerror)
 - [Deque](#deque)
+  - [import java.util.ArrayDeque 살펴보기](#import-javautilarraydeque-살펴보기)
 
 </br>
 
@@ -42,6 +43,11 @@ Author: Jung
 </br>
 
 ### java.util.Stack 살펴보기
+
+</br>
+
+- synchronized 키워드를 통해 thread-safe 보장
+- 단일 스레드에서 성능 불리
 
 </br>
 
@@ -99,7 +105,7 @@ public class Stack<E> extends Vector<E> {
 > 제공해주는 operation은 push, pop(), peek(), empty(), search()다.  
 > 자바를 잘 아시는 분이거나, 혹은 코테 좀 풀어보신분들은 조금 이상하다는 것을 알 것이다.
 > 가끔 다른 분들 코드 보면 stack.isEmpty()를 사용하시는데  
-> 이것은 엄밀히 stack이 제공해주는 operaiton이 아니다!!
+> 이것은 엄밀히 stack이 제공해주는 operaiton이 아니다!
 
 </br>
 
@@ -456,5 +462,169 @@ public class LinkedList<E>
 ## Deque
 
 </br>
+
+> 문서를 읽어보면 deque는 double ended queue의 줄임말이라고 한다.  
+> 따라서 앞으로 deque의 개념을 양끝으로 넣을 수 있고 뺄 수 있는  
+> 큐로 인지하려고 한다.
+
+</br>
+
+```java
+public interface Deque<E> extends Queue<E> {
+
+    void addFirst(E e);
+
+    void addLast(E e);
+
+    boolean offerFirst(E e);
+
+    boolean offerLast(E e);
+
+    E removeFirst();
+
+    E removeLast();
+
+    E pollFirst();
+
+    E pollLast();
+
+    E getFirst();
+
+    E getLast();
+
+    E peekFirst();
+
+    E peekLast();
+
+    boolean removeFirstOccurrence(Object o);
+
+    boolean removeLastOccurrence(Object o);
+
+```
+
+</br>
+
+- Deque를 알아본 이유는
+  - 구현체로 LinekdList와 ArrayDequeue가 있는데 내가 ArrayDeque를 잘모른다.
+  - Queue의 구현체로 ArrayDeque를 쓰면 좋다는데 왜 좋은지 모르겠다.
+  - ArrayDeque도 결국 배열을 내부 인스턴스로 사용하는데 첫번째 원소를 삭제하면 별로 안좋을 것같은데?
+
+</br>
+
+### import java.util.ArrayDeque 살펴보기
+
+</br>
+
+```java
+public class ArrayDeque<E> extends AbstractCollection<E>
+                           implements Deque<E>, Cloneable, Serializable
+{
+  transient Object[] elements;
+
+  transient int head;
+
+  transient int tail;
+
+  public ArrayDeque() {
+          elements = new Object[16 + 1];
+  }
+
+}
+```
+
+</br>
+
+> 이름에서 볼 수 있듯 내부 배열을 사용하고  
+> 생성시 배열의 길이를 고정해서 사용한다.  
+> 배열의 크기가 다 차면 grow() 메서드를 활용해 내부 배열의 크기를 키운다.  
+> grow가 어떻게 구현되는지는 ArrayList에서도 봤으니,  
+> 이번에는 `첫번째 원소를 지울때`와 `첫번째 원소를 추가할 때`  
+> 어떻게 처리하는지 살펴보자!
+
+</br>
+
+```java
+    public E removeFirst() {
+        E e = pollFirst();
+        if (e == null)
+            throw new NoSuchElementException();
+        return e;
+    }
+
+    public E pollFirst() {
+        final Object[] es;
+        final int h;
+        E e = elementAt(es = elements, h = head);
+        if (e != null) {
+            es[h] = null;
+            head = inc(h, es.length);
+        }
+        return e;
+    }
+
+    static final <E> E elementAt(Object[] es, int i) {
+        return (E) es[i];
+    }
+
+    static final int inc(int i, int modulus) {
+        if (++i >= modulus) i = 0;
+        return i;
+    }
+```
+
+</br>
+
+> removeFirst는 exception을 터트리고 e를 가져오는 반면
+> pollFirst는 null을 반환할 수 있다
+
+</br>
+
+> pollFirst()에서 elementAt을 통해 받은 인자가 null이 아니면  
+> 현재 head가리키는 배열의 원소를 null로 반든 후  
+> head를 증가시킨다. 이때 head가 배열의 길이를 넘어가면 다시 0을 가리키도록 한다.
+
+</br>
+
+```java
+public void addFirst(E e) {
+        if (e == null)
+            throw new NullPointerException();
+        final Object[] es = elements;
+        es[head = dec(head, es.length)] = e;
+        if (head == tail)
+            grow(1);
+    }
+
+    static final int dec(int i, int modulus) {
+        if (--i < 0) i = modulus - 1;
+        return i;
+    }
+```
+
+> 첫째 원소를 head = dec(head, es.length)에 넣은 후  
+> head == tail이 같으면 grow(1)이 된다.  
+> dec 메서드도 보면 i가 0 보다 작으면 배열의 끝부분에 집어 넣는다.
+
+```test
+    /*
+     * VMs excel at optimizing simple array loops where indices are
+     * incrementing or decrementing over a valid slice, e.g.
+     *
+     * for (int i = start; i < end; i++) ... elements[i]
+     *
+     * Because in a circular array, elements are in general stored in
+     * two disjoint such slices, we help the VM by writing unusual
+     * nested loops for all traversals over the elements.  Having only
+     * one hot inner loop body instead of two or three eases human
+     * maintenance and encourages VM loop inlining into the caller.
+     */
+```
+
+</br>
+
+> 문서를 보기전에 눈치 빠른 분들은 알았겠지만  
+> ArrayDeque는 그냥 선형 배열로 되어 원소를 추가하고 늘리고 당겨오는 작업을 하지 않는다.  
+> ArrayDeqeue는 head와 tail을 통해 원형 배열의 구조를 띄고 있어  
+> 첫번째 원소의 삽입 삭제에 대한 성능 저하를 고려하지 않아도 된다.
 
 </br>
