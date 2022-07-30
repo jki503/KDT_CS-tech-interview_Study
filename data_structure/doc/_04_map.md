@@ -7,7 +7,7 @@ Author: Jung
 - [Map](#map)
   - [맵은 언제 쓸까?](#맵은-언제-쓸까)
   - [Map 구현체](#map-구현체)
-- [importjava.util.HashMap 살펴보기](#importjavautilhashmap-살펴보기)
+- [import java.util.HashMap 살펴보기](#import-javautilhashmap-살펴보기)
   - [map.put() 살펴보기](#mapput-살펴보기)
 
 </br>
@@ -44,7 +44,7 @@ Author: Jung
 
 </br>
 
-## importjava.util.HashMap 살펴보기
+## import java.util.HashMap 살펴보기
 
 </br>
 
