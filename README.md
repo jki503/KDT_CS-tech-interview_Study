@@ -73,3 +73,4 @@ Author: Jung
 - [Hash & Hash Collision](./data_structure/doc/_03_hash.md)
 - [Map](./data_structure/doc/_04_map.md)
 - [Set](./data_structure/doc/_05_set.md)
+- [Tree & Binary Tee](./data_structure/doc/_06_tree.md)
