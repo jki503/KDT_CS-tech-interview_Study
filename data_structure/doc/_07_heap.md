@@ -4,6 +4,13 @@ Category: Data Structure
 Author: Jung
 ---
 
+- [Priority Queue](#priority-queue)
+- [Heap](#heap)
+  - [힙 주요 동작(위의 그림에서 진행)](#힙-주요-동작위의-그림에서-진행)
+  - [힙실습](#힙실습)
+- [힙과 우선순위 큐의 관계](#힙과-우선순위-큐의-관계)
+- [힙과 우선순위 큐 사용 사례](#힙과-우선순위-큐-사용-사례)
+
 ## Priority Queue
 
 </br>
