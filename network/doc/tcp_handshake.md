@@ -1,11 +1,13 @@
-# TCP 3 & 4 handshake
-
-</br>
+---
+Title: TCP 3 & 4 handshake
+Category: Network
+Author: Jung
+---
 
 ## TCP 3 handshake
 
-> TCP/IP 프로토콜로 통신할때 클라이언트와 서버를간의  
-> 연결을 설정하는 과정
+> TCP/IP 프로토콜로 통신할때 클라이언트와  
+> 서버간의 논리적인 연결을 설정하는 과정
 
 </br>
 
@@ -33,15 +35,15 @@
 
 </br>
 
-- **클라이언트는** 서버에 `FIN` 플래그를 보낸다. / `ESTAB→ FIN_WAIT1`
-- **서버**는 FIN을 받고, 확인했다는 `ACK`를 클라이언트에게 보낸다. / `ESTAB→ CLOSE_WAIT`
+- 클라이언트는 서버에 `FIN` 플래그를 보낸다. / `ESTAB→ FIN_WAIT1`
+- 서버는 FIN을 받고, 확인했다는 `ACK`를 클라이언트에게 보낸다. / `ESTAB→ CLOSE_WAIT`
   - CLOSE_WAIT : 서버 자신의 close를 wait하는 상태
   - 처리해야 할 자신의 통신이 끝날 때 까지 기다림
-  - 이때, **클라이언트는** 서버가 close하기만을 기다리며 **FIN_WAIT1→ FIN_WAIT2**
-- **서버**는 자신의 데이터를 다 보낸 후 연결을 종료하겠다는 `**FIN**` 플래그를 보낸다. / `CLOSE_WAIT→ LAST_ACK`
-- **클라이언트**는 서버의 FIN을 받고, 확인했다는 `**ACK**`를 서버로 보낸다.
-  - 이때 **클라이언트는**, **TIME_WAIT** 상태로 서버의 데이터를 기다림.
-  - **서버**는 ACK을 받으면 바로 종료 / `LAST_ACK→ CLOSED`
-  - 이후 TIME_WAIT이 지나면 **클라이언트** 종료 (**TIME_WAIT → CLOSED**)
+  - 이때, 클라이언트는 서버가 close하기만을 기다리며 FIN_WAIT1→ FIN_WAIT2
+- 서버는 자신의 데이터를 다 보낸 후 연결을 종료하겠다는 `FIN` 플래그를 보낸다. / `CLOSE_WAIT→ LAST_ACK`
+- 클라이언트는 서버의 FIN을 받고, 확인했다는 `ACK`를 서버로 보낸다.
+  - 이때 클라이언트는, TIME_WAIT 상태로 서버의 데이터를 기다림.
+  - 서버는 ACK을 받으면 바로 종료 / `LAST_ACK→ CLOSED`
+  - 이후 TIME_WAIT이 지나면 클라이언트 종료 (TIME_WAIT → CLOSED)
 
 </br>
