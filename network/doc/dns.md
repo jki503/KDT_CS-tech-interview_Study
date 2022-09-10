@@ -1,12 +1,17 @@
-# DNS
-
-</br>
-
-- 정의
+---
+Title: DNS
+Category: Network
+Author: Jung
+---
 
 > 사용자가 웹 브라우저에서 접근하는 도메인에 대하여 IP와 라우팅 정보를 제공 해주는 시스템
 
 </br>
+
+## DNS를 사용하는 이유
+
+- 사용자가 외우기 어려운 IP를 알아야할 필요가 없다.
+- IP주소가 바뀌더라도 사용자는 도메인 이름만 알고 있어도 된다.
 
 |            DNS Recurive Query            |
 | :--------------------------------------: |
@@ -23,7 +28,7 @@
 
 </br>
 
-- Domain으로 IP 주소를 얻는 과정
+## Domain으로 IP 주소를 얻는 과정
 
 </br>
 
@@ -31,12 +36,8 @@
 > 2. Local DNS에 domain과 ip 주소의 관계가 캐시 되어 있으면 응답
 > 3. Local DNS에 없으면 Root DNS로 요청
 > 4. Root DNS에서 TLD 정보를 Local DNS로 전달
-> 5. LOCAL DNS는 TLD에 요청
+> 5. Local DNS는 authoritative에 요청
 > 6. authoritative는 domain에 대한 IP를 Local DNS에 전달
-
-</br>
-
-> Local(있으면 바로 응답) -> Root -> Local -> TLD -> Local -> authoritative -> sLocal
 
 </br>
 
