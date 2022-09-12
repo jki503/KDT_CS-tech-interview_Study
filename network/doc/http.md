@@ -1,15 +1,17 @@
-# HTTP
+---
+Title: HTTP
+Category: Network
+Author: Jung
+---
 
 > Application layer에 존재하는 프로토콜로 클라이언트와 서버가 웹상에서 데이터를 주고 받을 수 있도록 해준다.
 
 - 클라이언트 : UI와 유틸성에 대해 집중
-- 서비 : 비즈니스 로직에 집중
+- 서버 : 비즈니스 로직에 집중
 
 </br>
 
-## 특성
-
-### Stateless
+## Stateless
 
 - 서버가 클라이언트의 상태를 보존하지 않는다
 - 따라서 클라이언트의 이전 요청과 무관하게 응답한다.
@@ -58,7 +60,7 @@
 
 </br>
 
-### 비 연결성
+## 비 연결성
 
 - 요청과 응답시에만 유지하고 연결을 종료 한다.
 - 한정된 서버 자원을 효율적으로 사용 가능
@@ -124,8 +126,8 @@
 
 </br>
 
-> 요청과 응다 모두에 적용되는 헤더  
-> 바디에서 최종적으로 전송되는 데이터와는 관련이 없음
+> 요청과 응답 모두에 적용되는 헤더  
+> 바디에서 최종적으로 전송되는 데이터와는 관련이 없다.
 
 - Date
   - HTTP 메시지를 생성한 일시
@@ -151,7 +153,7 @@
   - 이에 따라 동일 IP 주소를 갖는 단일 서버에 여러 사이트 구축 가능
 - User-Agent
   - 클라이언트 소프트웨어(브라우저, OS) 명칭 및 버전 정보
-- referer : 바로 직전에 머물렀다 url
+- referer : 바로 직전에 머물렀던 url
 - accpept
   - 자신이 원하는 미디어 타입 및 우선순위
     - text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,_/_;q=0.8,application/signed-exchange;v=b3;q=0.9
