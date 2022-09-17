@@ -30,6 +30,7 @@ Author: Jung
   - [HTTP](#http)
   - [HTTP 1.1/2.0](#http-1120)
   - [로드 밸런싱](#로드-밸런싱)
+  - [CORS](#cors)
 - [**DataBase**](#database)
   - [Key & Join](#key--join)
   - [INDEX](#index)
@@ -111,6 +112,8 @@ Author: Jung
 ### [HTTP 1.1/2.0](./network/doc/http_version.md)
 
 ### [로드 밸런싱](./network/doc/load_balancer.md)
+
+### [CORS](./network/doc/cors.md)
 
 </br>
 
