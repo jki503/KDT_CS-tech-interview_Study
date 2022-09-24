@@ -1,13 +1,16 @@
-# Statement vs PreparedStatement
-
-</br>
+---
+Title: Statement vs PreparedStatement
+Category: DB
+Author: Jung
+---
 
 ## Statement
 
 </br>
 
 - Statement는 executeQuery()나 executeUpdate()를 실행하는 시점에 파라미터로 SQL문을 전달하는데, 이때 전달 되는 SQL문은 완성된 형태로 어떤 SQL문인지 파악하기 쉽다.
-- 또한 SQL문을 수행하는 과정에서 매번 컴파일 실행하여 효율성이 떨어진다.
+- SQL문을 수행하는 과정에서 매번 컴파일 실행하여 효율성이 떨어진다.
+- 쿼리에 파라미터 값이 미리 입력되어야 함으로 동적으로 파라미터에 값을 부여할 수 없다.
 
 </br>
 
@@ -48,7 +51,7 @@
 
 </br>
 
-- DBMS에서 동일하거나 비슷한 SQL문을 높은 효율성으로 반복적으로 싱행하기 위해 사용되는 기능
+- DBMS에서 동일하거나 비슷한 SQL문을 높은 효율성으로 반복적으로 싱행하기 위해 사용되는 기능이다.
 - 템플릿 형식을 기반으로 매 실행시 특정한 상수 값으로 치환되어 SQL문을 실행시키도록 도움
 
 - 예시
