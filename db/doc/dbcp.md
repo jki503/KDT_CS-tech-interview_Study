@@ -1,26 +1,46 @@
-# DataBase Connection Pool
+---
+Title: DBCP
+Category: DB
+Author: Jung
+---
 
 > 미리 일정 갯수의 Connection을 만들어 Pool에 저장 하고,  
 > 사용자의 요청이 발생하면 Connection을 제공 한 뒤  
-> 사용자의 연결이 종료된다면 Pool에 다시 반환하여 보관하는 것
+> 사용자의 연결이 종료된다면 Pool에 다시 반환하여 보관합니다.
 
 </br>
 
-- Connection Pool을 사용하지 않는 다면?
-  - 사용자의 요청에 따라 Connection이 생성되고 연결을 해제 한다면
-  - 수 많은 사용자가 요청할 경우 서버에 과부하
-  - DBMS나 기타 외부와 접속이 빈번할 경우 반드시 필요한 부분이나 DB와 Connection을 맺는 작업은 느리고 비용이 크다
+## DBCP를 사용하는 이유
+
+> Connection Pool을 사용하지 않고  
+> 사용자의 요청에 따라 Connection이 생성되고 연결을 해제 한다면  
+> 수 많은 사용자가 요청할 경우 서버에 과부하가 생길 수 있다.
 
 </br>
 
-- Connection Pool 없이 연결하기
-  - 1. DB 서버 접속을 위해 JDBC 드라이버 로드
-  - 2. DB 접속 정보와 DriverManager.getConnection()을 통해 DB Connection 객체 얻기
-  - 3. Connection 객체로 부터 쿼리 수행하기 위해 PreparedStatement 객체 받기
-  - 4. executeQuery를 수행하여 그결고로 ResultSet 객체 받아서 데이터 처리
-  - 5. 처리 완료후 사용한 리소스를 close 하여 반환
+## DBCP를 무조건 많이 만들면?
 
 </br>
+
+- Connection은 객체임으로 메모리 공간을 차지한다.
+- 즉, 요청대비 너무 많은 개수를 설정하면 메모리 낭비가 발생할 수 있다.
+  - 적당한 커넥션의 개수를 설정하고, 자원을 효율적으로 써야한다!
+
+</br>
+
+### Connection Pool 없이 연결하기
+
+</br>
+
+- 1. DB 서버 접속을 위해 JDBC 드라이버 로드
+- 2. DB 접속 정보와 DriverManager.getConnection()을 통해 DB Connection 객체 얻기
+- 3. Connection 객체로 부터 쿼리 수행하기 위해 PreparedStatement 객체 받기
+- 4. executeQuery를 수행하여 그결고로 ResultSet 객체 받아서 데이터 처리
+- 5. 처리 완료후 사용한 리소스를 close 하여 반환
+
+</br>
+
+## Connetion Pool의 구현체의 역할
 
 |           DBCP           |
 | :----------------------: |
@@ -28,14 +48,13 @@
 
 </br>
 
-- Connetion Pool의 구현체의 역할
-  - WAS가 실행되면서 미리 일정량의 DB Connection 객체를 생성하여 Pool에 저장
-  - HTTP 요청에 따라 필요할때 Pooldptj Connection 객체를 가져다 쓰고 반환
-  - 즉 HTTP 요청마다 DB Driver를 로드하고 물리적 연결에 의한 Connection 객체 생성 비용 감소
+- WAS가 실행되면서 미리 일정량의 DB Connection 객체를 생성하여 Pool에 저장
+- HTTP 요청에 따라 필요할때 Pool에서 Connection 객체를 가져다 쓰고 반환
+- 즉 HTTP 요청마다 DB Driver를 로드하고 물리적 연결에 의한 Connection 객체 생성 비용 감소
 
 </br>
 
-|              connection pool value               |
+|              Connection pool value               |
 | :----------------------------------------------: |
 | ![커넥션 속성](../res/connection_pool_value.png) |
 
@@ -61,11 +80,13 @@
 
 </br>
 
-- 1. 사용자의 요청 발생시 Pool에서 Connection 객체 가져옴
-- 2. Connection을 사용해 DB 작업 수행
-- 3. 사용이 끝난 Connection을 Pool에 반환
-- 4. Pool에 빌려줄 수 있는 커넥션이 존재하지 않는 경우 error가 발생하지 않고 다른 클라이언트가 커넥션을 반환할 때까지 요청한 클라이언트는 대기 상태
-- 5. 그 후 다른 클라이언트가 커넥션 반환하면, 대기 상태인 클라이언트가 커넥션을 사용하는 구조
+## DBCP 동작원리
+
+- 사용자의 요청 발생시 Pool에서 Connection 객체 가져옴
+- Connection을 사용해 DB 작업 수행
+- 사용이 끝난 Connection을 Pool에 반환
+- Pool에 빌려줄 수 있는 커넥션이 존재하지 않는 경우 error가 발생하지 않고 다른 클라이언트가 커넥션을 반환할 때까지 요청한 클라이언트는 대기 상태
+- 그 후 다른 클라이언트가 커넥션 반환하면, 대기 상태인 클라이언트가 커넥션을 사용하는 구조
 
 </br>
 
